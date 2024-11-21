@@ -8,7 +8,8 @@ function App() {
     useEffect (() => {
 
       const fetchPost = async () => {
-        
+
+        const data = await fetch ('https://jsonplaceholder.typicode.com/posts');
       }
     }, [])
 }
