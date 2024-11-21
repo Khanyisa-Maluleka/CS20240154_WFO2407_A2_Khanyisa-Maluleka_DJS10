@@ -2,16 +2,21 @@ import {useState, useEffect} from 'react'
 
 function App() {
 
-    const [posts, setPosts] = useState(null)    //creating states
+    const [posts, setPosts] = useState([])    //creating states
     const [error, setError] = useState(null)
 
-    useEffect (() => 
+    useEffect (() => {
 
         fetch ('https://jsonplaceholder.typicode.com/posts')
-          .then(response => response.json())
-          .then(data => setPosts(data))
-          .catch(error => setError(error))
-    , []);
+          .then(response => {
+            if (!response.ok) {
+            throw new Error('Failed to fetch posts');
+          }
+          return response.json();
+        })
+        .then((data) => setPosts(data))
+        .catch((err) => setError(err.message));
+    }, []);
 
     return (
       <div>
