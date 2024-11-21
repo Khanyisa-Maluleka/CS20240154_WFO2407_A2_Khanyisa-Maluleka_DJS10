@@ -7,6 +7,9 @@ function App() {
 
     useEffect (() => {
 
+      const fetchPost = async () => {
+        
+      }
     }, [])
 }
 
