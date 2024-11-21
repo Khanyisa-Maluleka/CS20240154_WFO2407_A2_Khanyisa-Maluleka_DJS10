@@ -1,6 +1,8 @@
 import {useState, useEffect} from 'react'
+import './App.css'
 
-function App() {
+
+export default function App() {
 
     const [posts, setPosts] = useState([])    //creating states
     const [error, setError] = useState(null)
@@ -15,24 +17,28 @@ function App() {
           return response.json();
         })
         .then((data) => setPosts(data))
-        .catch((err) => setError(err.message));
+        .catch(() => setError('Data fetching failed'));
     }, []);
+
+    if (error) {
+      return (
+        <div className="flex justify-center items-center min-h-screen">
+          <h1 className="text-4xl font-bold text-gray-800">
+            Data fetching failed
+          </h1>
+        </div>
+      );
+    }
 
     return (
       <div>
-        <h1>Blog Posts</h1>
-        {error ? (
-          <p style={{ color: 'red' }}>Error: {error}</p>
-        ) : (
-          posts.map((post) => (
-            <div key={post.id} style={{ marginBottom: '1rem' }}>
+        <h1>Posts</h1>
+          {posts.map(post => (
+            <div key={post.id}>
               <h2>{post.title}</h2>
               <p>{post.body}</p>
             </div>
-          ))
-        )}
+          ))}
       </div>
-    );
-  };
-
-export default App
+    )
+  }
