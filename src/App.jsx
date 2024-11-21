@@ -11,7 +11,7 @@ export default function App() {
 
         fetch ('https://jsonplaceholder.typicode.com/posts')
           .then(response => {
-            if (!response.ok) {
+            if (!response.ok) { //this is because catch doesn't catch all the errors
             throw new Error('Failed to fetch posts');
           }
           return response.json();
